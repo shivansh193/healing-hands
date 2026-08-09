@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Healing Hands — Priyanka Goel</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --cream: #f7f3ea;
+  --cream-dark: #ede8db;
+  --lavender: #b5a8cc;
+  --lavender-deep: #7a6895;
+  --plum: #4a3860;
+  --plum-light: #6b5580;
+  --text-dark: #2e2233;
+  --text-mid: #5c4d70;
+  --text-soft: #8a7a9b;
+  --pad: clamp(1.25rem, 5vw, 4rem);
+}
+
+html { scroll-behavior: smooth; }
+body { font-family: 'Jost', sans-serif; background: var(--cream); color: var(--text-dark); overflow-x: hidden; }
+
+/* ── NAV ── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 1.25rem var(--pad);
+  transition: background 0.5s, backdrop-filter 0.5s, border-color 0.5s;
+}
+nav.scrolled {
+  background: rgba(247,243,234,0.88);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid rgba(181,168,204,0.25);
+}
+.nav-logo {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(1.1rem, 3vw, 1.5rem);
+  font-weight: 400; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--plum); text-decoration: none;
+  display: flex; align-items: center; gap: 0.5rem;
+  flex-shrink: 0; line-height: 1;
+}
+.nav-logo .logo-sub {
+  display: block; font-size: 0.5em; letter-spacing: 0.18em;
+  color: var(--lavender-deep); font-weight: 300; margin-top: 0.2em;
+}
+.nav-logo-text { display: flex; flex-direction: column; }
+.nav-logo span { color: var(--lavender); }
+.nav-links {
+  display: flex; align-items: center; gap: 2rem; list-style: none;
+}
+.nav-links a {
+  font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--text-mid); text-decoration: none; transition: color 0.3s; white-space: nowrap;
+}
+.nav-links a:hover { color: var(--plum); }
+.nav-cta {
+  color: var(--plum) !important;
+  border: 1px solid var(--lavender);
+  padding: 0.55rem 1.3rem; border-radius: 100px;
+  transition: background 0.3s, color 0.3s, border-color 0.3s !important;
+}
+.nav-cta:hover { background: var(--plum) !important; color: var(--cream) !important; border-color: var(--plum) !important; }
+
+/* Hamburger */
+.nav-hamburger {
+  display: none; flex-direction: column; gap: 5px;
+  background: none; border: none; cursor: pointer; padding: 6px;
+  z-index: 201;
+}
+.nav-hamburger span {
+  display: block; width: 24px; height: 1.5px;
+  background: var(--plum); border-radius: 2px;
+  transition: transform 0.3s, opacity 0.3s;
+}
+.nav-hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+.nav-hamburger.open span:nth-child(2) { opacity: 0; }
+.nav-hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+/* Mobile menu drawer */
+.nav-drawer {
+  display: none; position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0; z-index: 190;
+  background: rgba(247,243,234,0.97);
+  backdrop-filter: blur(20px);
+  flex-direction: column; align-items: center; justify-content: center; gap: 2.5rem;
+  opacity: 0; pointer-events: none;
+  transition: opacity 0.4s;
+}
+.nav-drawer.open { opacity: 1; pointer-events: all; }
+.nav-drawer a {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2rem; font-weight: 300; letter-spacing: 0.1em;
+  color: var(--plum); text-decoration: none;
+  transition: color 0.3s;
+}
+.nav-drawer a:hover { color: var(--lavender-deep); }
+.nav-drawer .drawer-cta {
+  font-size: 0.75rem; font-family: 'Jost', sans-serif; letter-spacing: 0.18em;
+  text-transform: uppercase; border: 1px solid var(--lavender);
+  padding: 0.75rem 2rem; border-radius: 100px; color: var(--plum);
+}
+
+/* ── HERO ── */
+.hero {
+  min-height: 100svh; position: relative;
+  display: flex; align-items: center; overflow: hidden;
+  background: linear-gradient(160deg, #f0eafc 0%, #f7f3ea 40%, #e8f0ec 100%);
+}
+.hero-bg-orb {
+  position: absolute; border-radius: 50%;
+  filter: blur(80px); opacity: 0.35; pointer-events: none;
+  will-change: transform;
+}
+.orb1 { width: clamp(280px,50vw,600px); height: clamp(280px,50vw,600px); background: #d4c3e8; top: -80px; right: -80px; }
+.orb2 { width: clamp(200px,35vw,400px); height: clamp(200px,35vw,400px); background: #b8d4c4; bottom: 0; left: -60px; }
+.orb3 { width: clamp(150px,25vw,300px); height: clamp(150px,25vw,300px); background: #e8d5b0; top: 40%; left: 30%; }
+
+.hero-curve {
+  position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none;
+}
+.hero-curve path {
+  fill: none; stroke: var(--lavender); stroke-width: 1.5; opacity: 0.6;
+  stroke-dasharray: 2000; stroke-dashoffset: 2000;
+}
+
+.hero-inner {
+  position: relative; z-index: 2; width: 100%;
+  padding: clamp(5rem,12vh,8rem) var(--pad) clamp(3rem,6vh,4rem);
+  display: grid; grid-template-columns: 1fr 1fr;
+  align-items: center; gap: clamp(2rem,5vw,4rem);
+  max-width: 1400px; margin: 0 auto;
+}
+.hero-eyebrow {
+  font-size: clamp(0.62rem,1.5vw,0.72rem); letter-spacing: 0.25em; text-transform: uppercase;
+  color: var(--lavender-deep); margin-bottom: 1.25rem;
+  opacity: 0; transform: translateY(20px);
+  animation: fadeUp 1s 0.3s forwards;
+}
+.hero-headline {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2.8rem,6vw,6rem); font-weight: 300; line-height: 1.05;
+  color: var(--plum); margin-bottom: 1.5rem;
+  opacity: 0; transform: translateY(30px);
+  animation: fadeUp 1.2s 0.5s forwards;
+}
+.hero-headline em { font-style: italic; color: var(--lavender-deep); }
+.hero-sub {
+  font-size: clamp(0.9rem,1.8vw,1rem); font-weight: 300; line-height: 1.8;
+  color: var(--text-mid); max-width: 420px; margin-bottom: 2rem;
+  opacity: 0; transform: translateY(20px);
+  animation: fadeUp 1s 0.8s forwards;
+}
+.hero-actions {
+  display: flex; gap: 1rem; align-items: center; flex-wrap: wrap;
+  opacity: 0; transform: translateY(20px);
+  animation: fadeUp 1s 1s forwards;
+}
+.btn-primary {
+  font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase;
+  background: var(--plum); color: var(--cream);
+  padding: 0.85rem 2rem; border-radius: 100px;
+  text-decoration: none; border: none; cursor: pointer;
+  transition: background 0.3s, transform 0.2s;
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  white-space: nowrap;
+}
+.btn-primary:hover { background: var(--plum-light); transform: translateY(-1px); }
+.btn-ghost {
+  font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase;
+  color: var(--plum); text-decoration: none;
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  transition: gap 0.3s; white-space: nowrap;
+}
+.btn-ghost:hover { gap: 0.7rem; }
+
+.hero-right {
+  display: flex; flex-direction: column; align-items: flex-end; gap: 1.5rem;
+  opacity: 0; transform: translateX(30px);
+  animation: fadeRight 1.2s 0.6s forwards;
+}
+.hero-tag {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(0.95rem,2vw,1.1rem); font-style: italic;
+  color: var(--text-mid); text-align: right; line-height: 1.6;
+}
+.hero-credentials { display: flex; flex-direction: column; gap: 0.6rem; align-items: flex-end; }
+.credential-pill {
+  font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--lavender-deep);
+  background: rgba(181,168,204,0.15); border: 1px solid rgba(181,168,204,0.35);
+  padding: 0.4rem 1rem; border-radius: 100px;
+}
+.lotus-svg { width: clamp(70px,10vw,100px); height: clamp(70px,10vw,100px); margin-bottom: 0.5rem; }
+
+.hero-scroll-hint {
+  position: absolute; bottom: 1.5rem; left: 50%; transform: translateX(-50%);
+  display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+  opacity: 0; animation: fadeUp 1s 1.5s forwards;
+}
+.scroll-line {
+  width: 1px; height: 36px;
+  background: linear-gradient(to bottom, transparent, var(--lavender));
+  animation: scrollPulse 2s ease-in-out infinite;
+}
+.scroll-text { font-size: 0.58rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-soft); }
+
+/* ── SECTIONS ── */
+section { padding: clamp(4rem,8vh,7rem) var(--pad); }
+.section-inner { max-width: 1200px; margin: 0 auto; }
+.section-eyebrow {
+  font-size: 0.68rem; letter-spacing: 0.25em; text-transform: uppercase;
+  color: var(--lavender-deep); margin-bottom: 0.75rem;
+}
+.section-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2rem,5vw,3.5rem); font-weight: 300; line-height: 1.15;
+  color: var(--plum); margin-bottom: 1.25rem;
+}
+.section-title em { font-style: italic; color: var(--lavender-deep); }
+.section-divider { width: 40px; height: 1px; background: var(--lavender); margin-bottom: 1.5rem; }
+
+/* ── ABOUT ── */
+.about { background: var(--cream); }
+.about-grid {
+  display: grid; grid-template-columns: 1fr 1.2fr;
+  gap: clamp(2.5rem,6vw,6rem); align-items: center;
+}
+.years-block { display: flex; align-items: baseline; gap: 0.5rem; margin-bottom: 1.5rem; }
+.years-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(3.5rem,8vw,5rem); font-weight: 300; color: var(--plum); line-height: 1;
+}
+.years-label {
+  font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase;
+  color: var(--text-soft); line-height: 1.4; max-width: 80px;
+}
+.about-quote {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(1.2rem,2.5vw,1.6rem); font-style: italic; font-weight: 300;
+  color: var(--plum-light); line-height: 1.5;
+  border-left: 2px solid var(--lavender); padding-left: 1.25rem; margin-top: 1.5rem;
+}
+.about-body { font-size: clamp(0.88rem,1.6vw,1rem); font-weight: 300; line-height: 1.9; color: var(--text-mid); }
+.about-body p + p { margin-top: 1.1rem; }
+.about-photo-wrap {
+  width: 100%; aspect-ratio: 3/4; max-width: 340px;
+  border-radius: 2px; overflow: hidden;
+  border: 1px solid rgba(181,168,204,0.3);
+  margin-bottom: 2rem; position: relative;
+  background: rgba(181,168,204,0.12);
+}
+.about-photo-wrap img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.about-photo-placeholder {
+  width: 100%; height: 100%; display: flex; flex-direction: column;
+  align-items: center; justify-content: center; gap: 0.75rem;
+  color: var(--lavender-deep); font-size: 0.72rem; letter-spacing: 0.15em;
+  text-transform: uppercase; text-align: center; padding: 2rem;
+}
+.about-photo-placeholder svg { opacity: 0.4; }
+.about-insta {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase;
+  color: var(--lavender-deep); text-decoration: none;
+  border-bottom: 1px solid rgba(181,168,204,0.5); padding-bottom: 2px;
+  transition: color 0.3s, border-color 0.3s; margin-top: 0.5rem;
+}
+.about-insta:hover { color: var(--plum); border-color: var(--plum); }
+
+/* ── PRICING ── */
+.pricing { background: var(--cream-dark); }
+.pricing-grid {
+  display: grid; grid-template-columns: repeat(3,1fr);
+  gap: 1.25rem; margin-top: 2.5rem;
+}
+.price-card {
+  background: var(--cream); border: 1px solid rgba(181,168,204,0.3);
+  border-radius: 2px; padding: clamp(1.5rem,3vw,2.2rem);
+  display: flex; flex-direction: column; gap: 0.75rem;
+  transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
+  text-decoration: none; color: inherit; cursor: pointer;
+  position: relative; overflow: hidden;
+}
+.price-card:hover {
+  border-color: rgba(122,104,149,0.5);
+  transform: translateY(-5px);
+  box-shadow: 0 16px 48px rgba(74,56,96,0.1);
+}
+.price-card:active { transform: translateY(-2px); }
+.price-icon { font-size: 1.4rem; margin-bottom: 0.25rem; }
+.price-type {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(1.3rem,2.5vw,1.6rem); font-weight: 400; color: var(--plum); line-height: 1.1;
+}
+.price-amount {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(1.8rem,3.5vw,2.4rem); font-weight: 300; color: var(--plum); line-height: 1;
+}
+.price-amount span { font-size: 0.5em; font-family: 'Jost', sans-serif; color: var(--lavender-deep); vertical-align: super; }
+.price-note { font-size: 0.78rem; font-weight: 300; color: var(--text-soft); line-height: 1.6; }
+.price-extra { font-size: 0.72rem; color: var(--lavender-deep); letter-spacing: 0.05em; }
+.price-cta {
+  margin-top: auto; padding-top: 1rem;
+  border-top: 1px solid rgba(181,168,204,0.25);
+  font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase;
+  color: var(--lavender-deep); display: flex; align-items: center; gap: 0.4rem;
+  transition: color 0.3s, gap 0.3s;
+}
+.price-card:hover .price-cta { color: var(--plum); gap: 0.7rem; }
+.pricing-footer {
+  margin-top: 2rem; padding: 1.5rem; text-align: center;
+  border: 1px solid rgba(181,168,204,0.2); border-radius: 2px;
+  background: rgba(181,168,204,0.06);
+  font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.05rem;
+  font-weight: 300; line-height: 1.8; color: var(--text-mid);
+}
+
+/* ── SERVICES ── */
+.services { background: linear-gradient(160deg, #ede5f7 0%, #f7f3ea 60%); }
+.services-grid {
+  display: grid; grid-template-columns: repeat(2,1fr);
+  gap: 1.25rem; margin-top: 2.5rem;
+}
+.service-card {
+  background: rgba(255,255,255,0.6); border: 1px solid rgba(181,168,204,0.25);
+  border-radius: 2px; padding: clamp(1.5rem,3vw,2.5rem);
+  transition: background 0.3s, border-color 0.3s, transform 0.3s;
+}
+.service-card:hover {
+  background: rgba(255,255,255,0.9); border-color: rgba(181,168,204,0.55);
+  transform: translateY(-3px);
+}
+.service-num { font-family: 'Cormorant Garamond', serif; font-size: 0.78rem; letter-spacing: 0.15em; color: var(--lavender); margin-bottom: 0.75rem; }
+.service-name { font-family: 'Cormorant Garamond', serif; font-size: clamp(1.4rem,2.5vw,1.8rem); font-weight: 400; color: var(--plum); margin-bottom: 0.65rem; line-height: 1.2; }
+.service-desc { font-size: clamp(0.82rem,1.4vw,0.88rem); font-weight: 300; line-height: 1.8; color: var(--text-mid); }
+.service-tag {
+  display: inline-block; margin-top: 1rem;
+  font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--lavender-deep); border-bottom: 1px solid var(--lavender); padding-bottom: 2px;
+}
+
+/* ── PHILOSOPHY ── */
+.philosophy { background: var(--cream); }
+.philosophy-inner { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(2.5rem,6vw,6rem); align-items: start; }
+.philosophy-sticky { position: sticky; top: 5rem; }
+.philosophy-body { font-size: clamp(0.88rem,1.6vw,1rem); font-weight: 300; line-height: 1.9; color: var(--text-mid); margin-top: 1.25rem; }
+.philosophy-items { display: flex; flex-direction: column; gap: 2rem; }
+.phil-item {
+  padding: 1.5rem; border-left: 2px solid transparent;
+  transition: border-color 0.4s, background 0.4s; border-radius: 0 2px 2px 0;
+}
+.phil-item.active { border-color: var(--lavender-deep); background: rgba(181,168,204,0.08); }
+.phil-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(1.2rem,2vw,1.4rem); font-weight: 400; color: var(--plum); margin-bottom: 0.4rem; }
+.phil-text { font-size: clamp(0.82rem,1.4vw,0.88rem); font-weight: 300; line-height: 1.8; color: var(--text-mid); }
+
+/* ── BOOKING ── */
+.booking { background: var(--plum); position: relative; overflow: hidden; }
+.booking::before {
+  content: ''; position: absolute;
+  width: clamp(300px,50vw,600px); height: clamp(300px,50vw,600px);
+  background: rgba(181,168,204,0.12); border-radius: 50%; top: -200px; right: -100px;
+}
+.booking::after {
+  content: ''; position: absolute;
+  width: clamp(150px,25vw,300px); height: clamp(150px,25vw,300px);
+  background: rgba(181,168,204,0.08); border-radius: 50%; bottom: -100px; left: -50px;
+}
+.booking-inner { position: relative; z-index: 2; max-width: 800px; margin: 0 auto; text-align: center; }
+.booking .section-eyebrow { color: var(--lavender); }
+.booking .section-title { color: var(--cream); }
+.booking .section-title em { color: var(--lavender); }
+.booking-sub {
+  font-size: clamp(0.88rem,1.6vw,1rem); font-weight: 300;
+  color: rgba(247,243,234,0.7); line-height: 1.8; margin: 1.25rem 0 2.5rem;
+}
+.booking-options { display: flex; flex-wrap: wrap; gap: 0.65rem; justify-content: center; margin-bottom: 2.5rem; }
+.booking-chip {
+  font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--lavender); border: 1px solid rgba(181,168,204,0.4);
+  padding: 0.6rem 1.3rem; border-radius: 100px; cursor: pointer;
+  transition: background 0.3s, border-color 0.3s; user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+.booking-chip:hover, .booking-chip.selected { background: rgba(181,168,204,0.2); border-color: var(--lavender); }
+.booking-cta {
+  display: inline-flex; align-items: center; gap: 0.6rem;
+  background: var(--cream); color: var(--plum);
+  font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase;
+  padding: 1rem 2.5rem; border-radius: 100px; text-decoration: none;
+  transition: background 0.3s, transform 0.2s;
+}
+.booking-cta:hover { background: white; transform: translateY(-2px); }
+.booking-note { font-size: 0.75rem; color: rgba(247,243,234,0.4); margin-top: 1rem; }
+.calendly-wrap {
+  width: 100%; border-radius: 4px; overflow: hidden;
+  margin: 1.5rem 0 1rem;
+  box-shadow: 0 8px 40px rgba(74,56,96,0.18);
+}
+.booking-alt {
+  font-size: 0.82rem; color: rgba(247,243,234,0.55);
+  margin-top: 0.5rem; font-weight: 300;
+}
+.booking-alt a {
+  color: var(--lavender); text-decoration: none;
+  border-bottom: 1px solid rgba(181,168,204,0.4);
+  padding-bottom: 1px; transition: color 0.3s, border-color 0.3s;
+}
+.booking-alt a:hover { color: var(--cream); border-color: var(--cream); }
+
+/* ── FOOTER ── */
+footer {
+  background: var(--cream-dark); padding: clamp(2rem,5vw,4rem) var(--pad);
+  display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1.5rem;
+  border-top: 1px solid rgba(181,168,204,0.25);
+}
+.footer-brand { font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; font-weight: 300; letter-spacing: 0.15em; color: var(--plum); text-transform: uppercase; }
+.footer-copy { font-size: 0.68rem; color: var(--text-soft); margin-top: 0.25rem; }
+.footer-links { display: flex; gap: 1.5rem; list-style: none; flex-wrap: wrap; }
+.footer-links a { font-size: 0.68rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-mid); text-decoration: none; transition: color 0.3s; }
+.footer-links a:hover { color: var(--plum); }
+.footer-social { display: flex; gap: 0.75rem; align-items: center; }
+.social-link {
+  width: 38px; height: 38px; border: 1px solid rgba(181,168,204,0.4); border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--text-mid); text-decoration: none; font-size: 0.68rem;
+  transition: border-color 0.3s, color 0.3s;
+  -webkit-tap-highlight-color: transparent;
+}
+.social-link:hover { border-color: var(--plum); color: var(--plum); }
+
+/* ── REVEAL ── */
+.reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.9s cubic-bezier(0.2,0,0.2,1), transform 0.9s cubic-bezier(0.2,0,0.2,1); }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.32s; }
+.reveal-delay-4 { transition-delay: 0.45s; }
+
+@keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+@keyframes fadeRight { to { opacity: 1; transform: translateX(0); } }
+@keyframes scrollPulse {
+  0%,100% { opacity: 0.4; transform: scaleY(1); }
+  50% { opacity: 1; transform: scaleY(1.15); }
+}
+
+/* ── TABLET (≤900px) ── */
+@media (max-width: 900px) {
+  .nav-links { display: none; }
+  .nav-hamburger { display: flex; }
+  .nav-drawer { display: flex; }
+
+  .hero-inner { grid-template-columns: 1fr; }
+  .hero-right { align-items: flex-start; flex-direction: row; flex-wrap: wrap; gap: 1rem; }
+  .hero-tag { text-align: left; font-size: 1rem; }
+  .hero-credentials { flex-direction: row; flex-wrap: wrap; align-items: flex-start; }
+
+  .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+  .about-photo-wrap { max-width: 100%; aspect-ratio: 4/3; }
+  .services-grid { grid-template-columns: 1fr 1fr; }
+  .pricing-grid { grid-template-columns: 1fr; }
+  .philosophy-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+  .philosophy-sticky { position: static; }
+
+  footer { flex-direction: column; align-items: flex-start; gap: 1.5rem; }
+  .footer-links { display: none; }
+}
+
+/* ── MOBILE (≤600px) ── */
+@media (max-width: 600px) {
+  .hero-inner { padding-top: 5.5rem; }
+  .hero-right { display: none; }
+  .hero-headline { font-size: clamp(2.4rem,11vw,3.2rem); }
+
+  .services-grid { grid-template-columns: 1fr; }
+
+  .pricing-grid { grid-template-columns: 1fr; }
+  .booking-options { gap: 0.5rem; }
+  .booking-chip { font-size: 0.62rem; padding: 0.55rem 1rem; }
+  .booking-cta { padding: 0.9rem 2rem; font-size: 0.68rem; width: 100%; justify-content: center; }
+
+  .years-num { font-size: 3.5rem; }
+  .about-quote { font-size: 1.15rem; }
+
+  footer { align-items: center; text-align: center; }
+  .footer-social { justify-content: center; }
+}
+
+/* ── REDUCED MOTION ── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+  .reveal { opacity: 1; transform: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="#" class="nav-logo">
+    <!-- =====================================================
+         LOGO: Replace this hand-drawn SVG with the real logo.
+         Option A — SVG file:  <img src="logo.svg" alt="Healing Hands logo" style="height:38px;width:auto">
+         Option B — PNG file:  <img src="logo.png" alt="Healing Hands logo" style="height:38px;width:auto">
+         Delete the <svg>...</svg> block below once the real logo is added.
+         ===================================================== -->
+    <svg width="22" height="22" viewBox="0 0 200 200" fill="none" aria-hidden="true" style="flex-shrink:0">
+      <ellipse cx="100" cy="90" rx="12" ry="30" fill="rgba(181,168,204,0.5)" stroke="#7a6895" stroke-width="2"/>
+      <ellipse cx="100" cy="95" rx="12" ry="28" transform="rotate(-30 100 95)" fill="rgba(181,168,204,0.35)" stroke="#7a6895" stroke-width="2"/>
+      <ellipse cx="100" cy="95" rx="12" ry="28" transform="rotate(30 100 95)" fill="rgba(181,168,204,0.35)" stroke="#7a6895" stroke-width="2"/>
+      <polygon points="100,58 108,74 100,79 92,74" fill="rgba(181,168,204,0.7)" stroke="#7a6895" stroke-width="1.5"/>
+      <path d="M 65 108 Q 70 140, 100 152 Q 130 140, 135 108" stroke="#7a6895" stroke-width="1.5" fill="rgba(181,168,204,0.1)"/>
+    </svg>
+    <span class="nav-logo-text">
+      Healing Hands
+      <span class="logo-sub">Priyanka Goel</span>
+    </span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#pricing">Pricing</a></li>
+    <li><a href="#philosophy">Philosophy</a></li>
+    <li><a href="https://calendly.com/healinghandspgoel/30min" target="_blank" rel="noopener" class="nav-cta">Book a Session</a></li>
+  </ul>
+  <button class="nav-hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- MOBILE DRAWER -->
+<div class="nav-drawer" id="drawer" role="dialog" aria-modal="true">
+  <a href="#about" class="drawer-link">About</a>
+  <a href="#services" class="drawer-link">Services</a>
+  <a href="#pricing" class="drawer-link">Pricing</a>
+  <a href="#philosophy" class="drawer-link">Philosophy</a>
+  <a href="https://calendly.com/healinghandspgoel/30min" target="_blank" rel="noopener" class="drawer-cta">Book a Session</a>
+</div>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-bg-orb orb1"></div>
+  <div class="hero-bg-orb orb2"></div>
+  <div class="hero-bg-orb orb3"></div>
+
+  <svg class="hero-curve" viewBox="0 0 1400 900" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+    <path id="curvePath" d="M 200 -50 C 300 200, 100 350, 350 500 C 600 650, 900 400, 800 700 C 750 850, 500 900, 600 1000"/>
+    <path id="curvePath2" d="M 1200 -50 C 1100 150, 1300 400, 1050 550 C 800 700, 600 500, 700 750 C 780 900, 1100 850, 1000 1050" opacity="0.3"/>
+  </svg>
+
+  <div class="hero-inner">
+    <div class="hero-left">
+      <p class="hero-eyebrow">Holistic Healing · Since 2006</p>
+      <h1 class="hero-headline">
+        If you don't find<br>
+        the path, <em>we<br>
+        make one.</em>
+      </h1>
+      <p class="hero-sub">
+        A sacred space for deep healing, clarity, and transformation — through Reiki, Tarot, Vedic Numerology, and Akashic wisdom.
+      </p>
+      <div class="hero-actions">
+        <a href="https://calendly.com/healinghandspgoel/30min" target="_blank" rel="noopener" class="btn-primary">Book a Session →</a>
+        <a href="#services" class="btn-ghost">Explore services ↓</a>
+      </div>
+    </div>
+    <div class="hero-right">
+      <svg class="lotus-svg" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M 70 145 Q 50 130, 40 110 Q 35 95, 50 90 Q 60 88, 65 100" stroke="#7a6895" stroke-width="2" fill="none" stroke-linecap="round"/>
+        <path d="M 130 145 Q 150 130, 160 110 Q 165 95, 150 90 Q 140 88, 135 100" stroke="#7a6895" stroke-width="2" fill="none" stroke-linecap="round"/>
+        <path d="M 65 100 Q 70 140, 100 155 Q 130 140, 135 100" stroke="#7a6895" stroke-width="1.5" fill="rgba(181,168,204,0.1)" stroke-linecap="round"/>
+        <ellipse cx="100" cy="90" rx="12" ry="30" fill="rgba(181,168,204,0.3)" stroke="#7a6895" stroke-width="1.5"/>
+        <ellipse cx="100" cy="95" rx="12" ry="28" transform="rotate(-30 100 95)" fill="rgba(181,168,204,0.2)" stroke="#7a6895" stroke-width="1.5"/>
+        <ellipse cx="100" cy="95" rx="12" ry="28" transform="rotate(30 100 95)" fill="rgba(181,168,204,0.2)" stroke="#7a6895" stroke-width="1.5"/>
+        <ellipse cx="100" cy="100" rx="10" ry="25" transform="rotate(-60 100 100)" fill="rgba(181,168,204,0.15)" stroke="#7a6895" stroke-width="1"/>
+        <ellipse cx="100" cy="100" rx="10" ry="25" transform="rotate(60 100 100)" fill="rgba(181,168,204,0.15)" stroke="#7a6895" stroke-width="1"/>
+        <polygon points="100,55 110,75 100,80 90,75" fill="rgba(181,168,204,0.5)" stroke="#7a6895" stroke-width="1.5"/>
+        <polygon points="100,80 110,75 100,95 90,75" fill="rgba(122,104,149,0.3)" stroke="#7a6895" stroke-width="1.5"/>
+      </svg>
+      <div class="hero-tag">"Where healing meets clarity —<br>a path to your truest self."</div>
+      <div class="hero-credentials">
+        <span class="credential-pill">Reiki Healer</span>
+        <span class="credential-pill">Tarot Reader</span>
+        <span class="credential-pill">Vedic Numerologist</span>
+        <span class="credential-pill">Akashic Reader</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-scroll-hint" aria-hidden="true">
+    <div class="scroll-line"></div>
+    <span class="scroll-text">Scroll</span>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="section-inner">
+    <div class="about-grid">
+      <div class="about-left reveal">
+        <p class="section-eyebrow">The Healer</p>
+        <div class="years-block">
+          <span class="years-num">18</span>
+          <span class="years-label">years of practice & presence</span>
+        </div>
+        <div class="section-divider"></div>
+        <p class="section-title" style="font-size:clamp(1.6rem,3vw,2rem);">Priyanka <em>Goel</em></p>
+        <div class="about-quote">
+          "Healing doesn't ask you to change who you are. It asks you to come home to it."
+        </div>
+      </div>
+      <div class="about-right reveal reveal-delay-2">
+        <!-- =====================================================
+             PHOTO: Save Priyanka's photo as "priyanka-photo.jpg"
+             in the same folder as this HTML file.
+             The <img> below will auto-load it.
+             Until then, the lotus placeholder shows.
+             ===================================================== -->
+        <div class="about-photo-wrap">
+          <img src="priyanka-photo.jpeg" alt="Priyanka Goel — Healing Hands"
+               onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+          <!-- Static placeholder — remove once real photo is added -->
+          <div class="about-photo-placeholder">
+            <svg width="48" height="48" viewBox="0 0 200 200" fill="none" aria-hidden="true">
+              <ellipse cx="100" cy="90" rx="12" ry="30" fill="rgba(181,168,204,0.4)" stroke="#b5a8cc" stroke-width="2"/>
+              <ellipse cx="100" cy="95" rx="12" ry="28" transform="rotate(-30 100 95)" fill="rgba(181,168,204,0.3)" stroke="#b5a8cc" stroke-width="2"/>
+              <ellipse cx="100" cy="95" rx="12" ry="28" transform="rotate(30 100 95)" fill="rgba(181,168,204,0.3)" stroke="#b5a8cc" stroke-width="2"/>
+              <polygon points="100,58 108,74 100,79 92,74" fill="rgba(181,168,204,0.6)" stroke="#b5a8cc" stroke-width="1.5"/>
+              <path d="M 65 108 Q 70 140, 100 152 Q 130 140, 135 108" stroke="#b5a8cc" stroke-width="1.5" fill="rgba(181,168,204,0.1)"/>
+            </svg>
+            <span>Add priyanka-photo.jpg<br>to this folder</span>
+          </div>
+        </div>
+        <div class="about-body">
+          <p>Priyanka Goel has spent over 18 years holding space for people at every kind of crossroads — those seeking clarity, those carrying grief, those simply searching for a thread back to themselves.</p>
+          <p>Her work draws on four modalities: Reiki energy healing, Tarot reading, Vedic Numerology, and Akashic Records — each a different doorway into the same quiet truth. She offers both personal healing sessions and teaches these practices to those who feel called to carry them forward.</p>
+          <p>Based in India and available online worldwide, Priyanka's sessions are intimate, unhurried, and rooted in deep listening. Whether you come with a question or simply a feeling, there is space for you here.</p>
+        </div>
+        <a href="https://www.instagram.com/healinghands_pg" target="_blank" rel="noopener" class="about-insta">
+          ↗ @healinghands_pg on Instagram
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services" id="services">
+  <div class="section-inner">
+    <p class="section-eyebrow reveal">What We Offer</p>
+    <h2 class="section-title reveal reveal-delay-1">Four paths. <em>One destination.</em></h2>
+    <div class="section-divider reveal reveal-delay-2"></div>
+    <div class="services-grid">
+      <div class="service-card reveal reveal-delay-1">
+        <p class="service-num">01</p>
+        <h3 class="service-name">Reiki Healing</h3>
+        <p class="service-desc">Channel universal life energy to restore balance across body, mind, and spirit. Reiki works gently beneath the surface — releasing blockages, easing anxiety, and returning you to a state of deep rest.</p>
+        <span class="service-tag">In-person & online</span>
+      </div>
+      <div class="service-card reveal reveal-delay-2">
+        <p class="service-num">02</p>
+        <h3 class="service-name">Tarot Reading</h3>
+        <p class="service-desc">The cards don't predict your future — they illuminate your present. A Tarot session with Priyanka is a mirror held gently, helping you see what you already know but haven't yet let yourself hear.</p>
+        <span class="service-tag">Personal & relationship readings</span>
+      </div>
+      <div class="service-card reveal reveal-delay-3">
+        <p class="service-num">03</p>
+        <h3 class="service-name">Vedic Numerology</h3>
+        <p class="service-desc">Your name and birth date carry a blueprint. Vedic Numerology decodes the energetic patterns woven into your life — revealing strengths, cycles, and the timing of transformation.</p>
+        <span class="service-tag">Life path & name analysis</span>
+      </div>
+      <div class="service-card reveal reveal-delay-4">
+        <p class="service-num">04</p>
+        <h3 class="service-name">Akashic Records</h3>
+        <p class="service-desc">The Akashic Records hold the energetic imprint of every soul's journey. This modality helps you understand karmic patterns, soul contracts, and the deeper meaning behind recurring life experiences.</p>
+        <span class="service-tag">Soul-level healing</span>
+      </div>
+    </div>
+    <div class="service-card reveal" style="margin-top:1.25rem; border-color:rgba(122,104,149,0.3); background:rgba(122,104,149,0.06);">
+      <p class="service-num" style="color:var(--plum);">Also</p>
+      <h3 class="service-name">Learn the Practice</h3>
+      <p class="service-desc">For those who feel called to carry these gifts — Priyanka offers guided learning in Reiki, Tarot, and Numerology. Not just technique, but the intuition, ethics, and presence that make healing real.</p>
+      <span class="service-tag">Contact for details</span>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="pricing" id="pricing">
+  <div class="section-inner">
+    <p class="section-eyebrow reveal">Session Fees</p>
+    <h2 class="section-title reveal reveal-delay-1">Choose your session. <em>Click to book.</em></h2>
+    <div class="section-divider reveal reveal-delay-2"></div>
+    <div class="pricing-grid">
+
+      <!-- Written Guidance → WhatsApp with pre-filled message -->
+      <a href="https://wa.me/919238745399?text=Hi%20Priyanka%2C%20I%27d%20like%20to%20book%20a%20Written%20Guidance%20session%20(%E2%82%B91%2C100).%20Could%20you%20please%20share%20the%20next%20steps%3F%20%F0%9F%8C%BF"
+         target="_blank" rel="noopener" class="price-card reveal reveal-delay-1">
+        <div class="price-icon">🌿</div>
+        <p class="price-type">Written Guidance</p>
+        <p class="price-amount"><span>₹</span>1,100</p>
+        <p class="price-note">A thoughtful written reading delivered to you — ideal for reflection at your own pace.</p>
+        <p class="price-cta">Book via WhatsApp →</p>
+      </a>
+
+      <!-- Audio Call → Calendly -->
+      <a href="https://calendly.com/healinghandspgoel/30min"
+         target="_blank" rel="noopener" class="price-card reveal reveal-delay-2">
+        <div class="price-icon">📞</div>
+        <p class="price-type">Audio Call</p>
+        <p class="price-amount"><span>₹</span>1,500</p>
+        <p class="price-note">First 30 minutes of personal guidance over call.</p>
+        <p class="price-extra">+ ₹50 per additional minute</p>
+        <p class="price-cta">Schedule on Calendly →</p>
+      </a>
+
+      <!-- Video Call → Calendly -->
+      <a href="https://calendly.com/healinghandspgoel/30min"
+         target="_blank" rel="noopener" class="price-card reveal reveal-delay-3">
+        <div class="price-icon">🎥</div>
+        <p class="price-type">Video Call</p>
+        <p class="price-amount"><span>₹</span>2,500</p>
+        <p class="price-note">First 30 minutes face-to-face — the most immersive experience.</p>
+        <p class="price-extra">+ ₹65 per additional minute</p>
+        <p class="price-cta">Schedule on Calendly →</p>
+      </a>
+
+    </div>
+    <p class="pricing-footer reveal">
+      "Every session includes practical remedies and healing guidance tailored to your unique situation — so you leave with clarity and a path forward."
+    </p>
+  </div>
+</section>
+
+<!-- PHILOSOPHY -->
+<section class="philosophy" id="philosophy">
+  <div class="section-inner">
+    <div class="philosophy-inner">
+      <div class="philosophy-sticky reveal">
+        <p class="section-eyebrow">The Approach</p>
+        <h2 class="section-title">Healing as a <em>coming home.</em></h2>
+        <div class="section-divider"></div>
+        <p class="philosophy-body">Every session at Healing Hands begins with one thing: listening. Not just to your words, but to the silences between them, the energy you carry in, the questions you haven't found words for yet.</p>
+        <p class="philosophy-body" style="margin-top:1rem;">Priyanka's work is never about fixing. It's about returning — to clarity, to ease, to the version of yourself that was always there.</p>
+      </div>
+      <div class="philosophy-items">
+        <div class="phil-item active reveal reveal-delay-1">
+          <h3 class="phil-title">You are not broken</h3>
+          <p class="phil-text">Every person who walks in carries their own wholeness. Healing is not repair — it's the gentle removal of what was never truly yours to carry.</p>
+        </div>
+        <div class="phil-item reveal reveal-delay-2">
+          <h3 class="phil-title">The body knows</h3>
+          <p class="phil-text">Long before the mind finds words, the body speaks. Priyanka's practice honours that intelligence — working with energy, sensation, and presence rather than against them.</p>
+        </div>
+        <div class="phil-item reveal reveal-delay-3">
+          <h3 class="phil-title">Transformation is quiet</h3>
+          <p class="phil-text">Real change rarely announces itself loudly. It arrives as a small shift in how you hold your mornings, a decision made with unusual ease, a heaviness you realise is gone.</p>
+        </div>
+        <div class="phil-item reveal reveal-delay-4">
+          <h3 class="phil-title">Every path is valid</h3>
+          <p class="phil-text">Whether you come through Reiki, Tarot, Numerology, or the Akashic Records — there is no hierarchy of healing. The right door is the one that calls to you.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BOOKING -->
+<section class="booking" id="book">
+  <div class="booking-inner">
+    <p class="section-eyebrow reveal">Not sure where to start?</p>
+    <h2 class="section-title reveal reveal-delay-1">Just reach out.<br><em>Priyanka replies personally.</em></h2>
+    <p class="booking-sub reveal reveal-delay-2">
+      If you'd like to talk it through before booking, send a message on WhatsApp — no pressure, no script.
+    </p>
+    <a href="https://wa.me/919238745399?text=Hi%20Priyanka%2C%20I%27d%20like%20to%20know%20more%20about%20your%20sessions%20%F0%9F%8C%BF"
+       target="_blank" rel="noopener" class="booking-cta reveal reveal-delay-3">
+      Message on WhatsApp →
+    </a>
+    <p class="booking-note reveal">+91 9238745399 · @healinghands_pg on Instagram</p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div>
+    <p class="footer-brand">Healing Hands</p>
+    <p class="footer-copy">© 2026 Priyanka Goel. All rights reserved.</p>
+  </div>
+  <ul class="footer-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#philosophy">Philosophy</a></li>
+    <li><a href="#book">Book</a></li>
+  </ul>
+  <div class="footer-social">
+    <a href="https://www.instagram.com/healinghands_pg" class="social-link" target="_blank" rel="noopener" aria-label="Instagram">IG</a>
+    <a href="https://wa.me/919238745399" class="social-link" target="_blank" rel="noopener" aria-label="WhatsApp">WA</a>
+  </div>
+</footer>
+
+<script>
+  // Nav scroll
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 50), { passive: true });
+
+  // Hamburger / drawer
+  const hamburger = document.getElementById('hamburger');
+  const drawer = document.getElementById('drawer');
+  function toggleMenu(open) {
+    hamburger.classList.toggle('open', open);
+    drawer.classList.toggle('open', open);
+    hamburger.setAttribute('aria-expanded', open);
+    document.body.style.overflow = open ? 'hidden' : '';
+  }
+  hamburger.addEventListener('click', () => toggleMenu(!drawer.classList.contains('open')));
+  drawer.querySelectorAll('.drawer-link').forEach(a => {
+    a.addEventListener('click', () => toggleMenu(false));
+  });
+
+  // SVG curve — scroll driven
+  const curve1 = document.getElementById('curvePath');
+  const curve2 = document.getElementById('curvePath2');
+  const hero = document.querySelector('.hero');
+  function updateCurve() {
+    const progress = Math.min(window.scrollY / (hero.offsetHeight * 0.7), 1);
+    const offset = 2000 * (1 - progress);
+    curve1.style.strokeDashoffset = offset;
+    curve2.style.strokeDashoffset = offset;
+    const s = window.scrollY;
+    document.querySelector('.orb1').style.transform = `translateY(${s * 0.15}px)`;
+    document.querySelector('.orb2').style.transform = `translateY(${-s * 0.1}px)`;
+    document.querySelector('.orb3').style.transform = `translateY(${s * 0.08}px)`;
+  }
+  window.addEventListener('scroll', updateCurve, { passive: true });
+  updateCurve();
+
+  // Intersection observer reveals
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); revealObserver.unobserve(e.target); } });
+  }, { threshold: 0.1, rootMargin: '0px 0px -30px 0px' });
+  document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+  // Philosophy active item
+  const philObserver = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        document.querySelectorAll('.phil-item').forEach(i => i.classList.remove('active'));
+        e.target.classList.add('active');
+      }
+    });
+  }, { threshold: 0.6 });
+  document.querySelectorAll('.phil-item').forEach(el => philObserver.observe(el));
+
+  // Booking chips
+  document.querySelectorAll('.booking-chip').forEach(chip => {
+    chip.addEventListener('click', () => chip.classList.toggle('selected'));
+  });
+
+  // Smooth scroll anchors
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const t = document.querySelector(a.getAttribute('href'));
+      if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth' }); }
+    });
+  });
+</script>
+</body>
+</html>
