@@ -40,16 +40,19 @@ nav.scrolled {
 }
 .nav-logo {
   font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(1.1rem, 3vw, 1.5rem);
+  font-size: clamp(1rem, 3vw, 1.4rem);
   font-weight: 400; letter-spacing: 0.12em; text-transform: uppercase;
-  color: var(--plum); text-decoration: none;
+  color: var(--plum-light); text-decoration: none;
   display: flex; align-items: center; gap: 0.5rem;
   flex-shrink: 0; line-height: 1;
+  text-shadow: 0 1px 12px rgba(247,243,234,0.7);
 }
+nav.scrolled .nav-logo { color: var(--plum); text-shadow: none; }
 .nav-logo .logo-sub {
-  display: block; font-size: 0.5em; letter-spacing: 0.18em;
-  color: var(--lavender-deep); font-weight: 300; margin-top: 0.2em;
+  display: block; font-size: 0.48em; letter-spacing: 0.2em;
+  color: var(--lavender); font-weight: 300; margin-top: 0.25em;
 }
+nav.scrolled .nav-logo .logo-sub { color: var(--lavender-deep); }
 .nav-logo-text { display: flex; flex-direction: column; }
 .nav-logo span { color: var(--lavender); }
 .nav-links {
@@ -473,22 +476,86 @@ footer {
 
 /* ── MOBILE (≤600px) ── */
 @media (max-width: 600px) {
-  .hero-inner { padding-top: 5.5rem; }
+  :root { --pad: 1.25rem; }
+
+  /* Nav — keep logo readable */
+  nav { padding: 1rem var(--pad); }
+  .nav-logo { font-size: 1rem; }
+  .nav-logo svg { width: 18px; height: 18px; }
+
+  /* Hero — single column, big text, clear CTA */
+  .hero-inner {
+    padding-top: 5rem;
+    padding-bottom: 3rem;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
   .hero-right { display: none; }
-  .hero-headline { font-size: clamp(2.4rem,11vw,3.2rem); }
+  .hero-eyebrow { font-size: 0.6rem; margin-bottom: 1rem; }
+  .hero-headline { font-size: clamp(2.6rem, 12vw, 3.4rem); margin-bottom: 1.2rem; }
+  .hero-sub { font-size: 0.95rem; margin-bottom: 1.8rem; }
+  .hero-actions { flex-direction: column; align-items: stretch; gap: 0.75rem; }
+  .btn-primary {
+    width: 100%; justify-content: center;
+    padding: 1rem; font-size: 0.78rem;
+  }
+  .btn-ghost { justify-content: center; }
+  .scroll-line { height: 28px; }
 
-  .services-grid { grid-template-columns: 1fr; }
+  /* Sections — more breathing room */
+  section { padding: 3.5rem var(--pad); }
 
-  .pricing-grid { grid-template-columns: 1fr; }
-  .booking-options { gap: 0.5rem; }
-  .booking-chip { font-size: 0.62rem; padding: 0.55rem 1rem; }
-  .booking-cta { padding: 0.9rem 2rem; font-size: 0.68rem; width: 100%; justify-content: center; }
-
+  /* About — stack cleanly */
+  .about-grid { gap: 2rem; }
+  .about-photo-wrap { aspect-ratio: 1/1; border-radius: 2px; }
   .years-num { font-size: 3.5rem; }
-  .about-quote { font-size: 1.15rem; }
+  .about-quote { font-size: 1.1rem; padding-left: 1rem; }
+  .about-body { font-size: 0.92rem; }
+  .about-insta { font-size: 0.78rem; margin-top: 1rem; }
 
-  footer { align-items: center; text-align: center; }
+  /* Services — single column, bigger tap targets */
+  .services-grid { grid-template-columns: 1fr; gap: 1rem; }
+  .service-card { padding: 1.5rem; }
+  .service-name { font-size: 1.5rem; }
+
+  /* Pricing — single column cards, full width tap */
+  .pricing-grid { grid-template-columns: 1fr; gap: 1rem; }
+  .price-card {
+    padding: 1.5rem;
+    flex-direction: row; flex-wrap: wrap;
+    align-items: center; gap: 0.5rem;
+  }
+  .price-icon { font-size: 1.6rem; margin-bottom: 0; }
+  .price-type { font-size: 1.3rem; flex: 1; min-width: 120px; }
+  .price-amount { font-size: 1.6rem; width: 100%; }
+  .price-note { font-size: 0.8rem; width: 100%; }
+  .price-extra { width: 100%; }
+  .price-cta {
+    width: 100%; justify-content: center;
+    background: rgba(181,168,204,0.12);
+    padding: 0.6rem 1rem; border-radius: 100px;
+    border-top: none; margin-top: 0.25rem;
+    font-size: 0.7rem;
+  }
+  .price-card:hover .price-cta { gap: 0.4rem; }
+
+  /* Philosophy */
+  .philosophy-items { gap: 1.25rem; }
+  .phil-item { padding: 1.25rem; }
+  .phil-title { font-size: 1.2rem; }
+
+  /* Booking */
+  .booking-inner { padding: 0 0.5rem; }
+  .booking-sub { font-size: 0.9rem; }
+  .booking-cta {
+    width: 100%; justify-content: center;
+    padding: 1rem; font-size: 0.75rem;
+  }
+
+  /* Footer */
+  footer { align-items: center; text-align: center; padding: 2.5rem var(--pad); }
   .footer-social { justify-content: center; }
+  .social-link { width: 44px; height: 44px; font-size: 0.72rem; }
 }
 
 /* ── REDUCED MOTION ── */
@@ -504,18 +571,10 @@ footer {
 <nav id="nav">
   <a href="#" class="nav-logo">
     <!-- =====================================================
-         LOGO: Replace this hand-drawn SVG with the real logo.
-         Option A — SVG file:  <img src="logo.svg" alt="Healing Hands logo" style="height:38px;width:auto">
-         Option B — PNG file:  <img src="logo.png" alt="Healing Hands logo" style="height:38px;width:auto">
-         Delete the <svg>...</svg> block below once the real logo is added.
+         LOGO: logo.png should be a transparent-background PNG.
+         Use remove.bg to strip the white background first.
          ===================================================== -->
-    <svg width="22" height="22" viewBox="0 0 200 200" fill="none" aria-hidden="true" style="flex-shrink:0">
-      <ellipse cx="100" cy="90" rx="12" ry="30" fill="rgba(181,168,204,0.5)" stroke="#7a6895" stroke-width="2"/>
-      <ellipse cx="100" cy="95" rx="12" ry="28" transform="rotate(-30 100 95)" fill="rgba(181,168,204,0.35)" stroke="#7a6895" stroke-width="2"/>
-      <ellipse cx="100" cy="95" rx="12" ry="28" transform="rotate(30 100 95)" fill="rgba(181,168,204,0.35)" stroke="#7a6895" stroke-width="2"/>
-      <polygon points="100,58 108,74 100,79 92,74" fill="rgba(181,168,204,0.7)" stroke="#7a6895" stroke-width="1.5"/>
-      <path d="M 65 108 Q 70 140, 100 152 Q 130 140, 135 108" stroke="#7a6895" stroke-width="1.5" fill="rgba(181,168,204,0.1)"/>
-    </svg>
+    <img src="logo.png" alt="Healing Hands logo" style="height:36px; width:auto; object-fit:contain;">
     <span class="nav-logo-text">
       Healing Hands
       <span class="logo-sub">Priyanka Goel</span>
@@ -526,7 +585,7 @@ footer {
     <li><a href="#services">Services</a></li>
     <li><a href="#pricing">Pricing</a></li>
     <li><a href="#philosophy">Philosophy</a></li>
-    <li><a href="https://calendly.com/healinghandspgoel/30min" target="_blank" rel="noopener" class="nav-cta">Book a Session</a></li>
+    <li><a href="#book" class="nav-cta">Book a Session</a></li>
   </ul>
   <button class="nav-hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
     <span></span><span></span><span></span>
@@ -539,7 +598,7 @@ footer {
   <a href="#services" class="drawer-link">Services</a>
   <a href="#pricing" class="drawer-link">Pricing</a>
   <a href="#philosophy" class="drawer-link">Philosophy</a>
-  <a href="https://calendly.com/healinghandspgoel/30min" target="_blank" rel="noopener" class="drawer-cta">Book a Session</a>
+  <a href="#book" class="drawer-cta drawer-link">Book a Session</a>
 </div>
 
 <!-- HERO -->
@@ -565,23 +624,13 @@ footer {
         A sacred space for deep healing, clarity, and transformation — through Reiki, Tarot, Vedic Numerology, and Akashic wisdom.
       </p>
       <div class="hero-actions">
-        <a href="https://calendly.com/healinghandspgoel/30min" target="_blank" rel="noopener" class="btn-primary">Book a Session →</a>
+        <a href="#book" class="btn-primary">Book a Session →</a>
         <a href="#services" class="btn-ghost">Explore services ↓</a>
       </div>
     </div>
     <div class="hero-right">
-      <svg class="lotus-svg" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <path d="M 70 145 Q 50 130, 40 110 Q 35 95, 50 90 Q 60 88, 65 100" stroke="#7a6895" stroke-width="2" fill="none" stroke-linecap="round"/>
-        <path d="M 130 145 Q 150 130, 160 110 Q 165 95, 150 90 Q 140 88, 135 100" stroke="#7a6895" stroke-width="2" fill="none" stroke-linecap="round"/>
-        <path d="M 65 100 Q 70 140, 100 155 Q 130 140, 135 100" stroke="#7a6895" stroke-width="1.5" fill="rgba(181,168,204,0.1)" stroke-linecap="round"/>
-        <ellipse cx="100" cy="90" rx="12" ry="30" fill="rgba(181,168,204,0.3)" stroke="#7a6895" stroke-width="1.5"/>
-        <ellipse cx="100" cy="95" rx="12" ry="28" transform="rotate(-30 100 95)" fill="rgba(181,168,204,0.2)" stroke="#7a6895" stroke-width="1.5"/>
-        <ellipse cx="100" cy="95" rx="12" ry="28" transform="rotate(30 100 95)" fill="rgba(181,168,204,0.2)" stroke="#7a6895" stroke-width="1.5"/>
-        <ellipse cx="100" cy="100" rx="10" ry="25" transform="rotate(-60 100 100)" fill="rgba(181,168,204,0.15)" stroke="#7a6895" stroke-width="1"/>
-        <ellipse cx="100" cy="100" rx="10" ry="25" transform="rotate(60 100 100)" fill="rgba(181,168,204,0.15)" stroke="#7a6895" stroke-width="1"/>
-        <polygon points="100,55 110,75 100,80 90,75" fill="rgba(181,168,204,0.5)" stroke="#7a6895" stroke-width="1.5"/>
-        <polygon points="100,80 110,75 100,95 90,75" fill="rgba(122,104,149,0.3)" stroke="#7a6895" stroke-width="1.5"/>
-      </svg>
+      <!-- Logo in hero -->
+      <img src="logo.png" alt="Healing Hands" class="lotus-svg" style="object-fit:contain; mix-blend-mode: multiply;">
       <div class="hero-tag">"Where healing meets clarity —<br>a path to your truest self."</div>
       <div class="hero-credentials">
         <span class="credential-pill">Reiki Healer</span>
@@ -622,17 +671,11 @@ footer {
              Until then, the lotus placeholder shows.
              ===================================================== -->
         <div class="about-photo-wrap">
-          <img src="priyanka-photo.jpeg" alt="Priyanka Goel — Healing Hands"
+          <img src="priyanka-photo.jpg" alt="Priyanka Goel — Healing Hands"
                onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
-          <!-- Static placeholder — remove once real photo is added -->
+          <!-- Static placeholder — remove the div below once priyanka-photo.jpg is added -->
           <div class="about-photo-placeholder">
-            <svg width="48" height="48" viewBox="0 0 200 200" fill="none" aria-hidden="true">
-              <ellipse cx="100" cy="90" rx="12" ry="30" fill="rgba(181,168,204,0.4)" stroke="#b5a8cc" stroke-width="2"/>
-              <ellipse cx="100" cy="95" rx="12" ry="28" transform="rotate(-30 100 95)" fill="rgba(181,168,204,0.3)" stroke="#b5a8cc" stroke-width="2"/>
-              <ellipse cx="100" cy="95" rx="12" ry="28" transform="rotate(30 100 95)" fill="rgba(181,168,204,0.3)" stroke="#b5a8cc" stroke-width="2"/>
-              <polygon points="100,58 108,74 100,79 92,74" fill="rgba(181,168,204,0.6)" stroke="#b5a8cc" stroke-width="1.5"/>
-              <path d="M 65 108 Q 70 140, 100 152 Q 130 140, 135 108" stroke="#b5a8cc" stroke-width="1.5" fill="rgba(181,168,204,0.1)"/>
-            </svg>
+            <img src="logo.png" alt="" style="width:64px; opacity:0.35; object-fit:contain;">
             <span>Add priyanka-photo.jpg<br>to this folder</span>
           </div>
         </div>
@@ -698,8 +741,8 @@ footer {
     <div class="section-divider reveal reveal-delay-2"></div>
     <div class="pricing-grid">
 
-      <!-- Written Guidance → WhatsApp with pre-filled message -->
-      <a href="https://wa.me/919238745399?text=Hi%20Priyanka%2C%20I%27d%20like%20to%20book%20a%20Written%20Guidance%20session%20(%E2%82%B91%2C100).%20Could%20you%20please%20share%20the%20next%20steps%3F%20%F0%9F%8C%BF"
+      <!-- Written Guidance → WhatsApp -->
+      <a href="https://wa.me/919238745399?text=Hi%20Priyanka%20%F0%9F%8C%BF%20I%E2%80%99d%20like%20to%20book%20a%20Written%20Guidance%20session%20(%E2%82%B91%2C100).%20Could%20you%20share%20what%20information%20you%E2%80%99ll%20need%20from%20me%20to%20get%20started%3F%20Thank%20you%20%F0%9F%99%8F"
          target="_blank" rel="noopener" class="price-card reveal reveal-delay-1">
         <div class="price-icon">🌿</div>
         <p class="price-type">Written Guidance</p>
@@ -708,26 +751,26 @@ footer {
         <p class="price-cta">Book via WhatsApp →</p>
       </a>
 
-      <!-- Audio Call → Calendly -->
-      <a href="https://calendly.com/healinghandspgoel/30min"
+      <!-- Audio Call → WhatsApp -->
+      <a href="https://wa.me/919238745399?text=Hi%20Priyanka%20%F0%9F%93%9E%20I%E2%80%99d%20like%20to%20book%20an%20Audio%20Call%20session%20(%E2%82%B91%2C500%20for%2030%20mins).%20Could%20you%20share%20your%20available%20slots%3F%20Thank%20you%20%F0%9F%99%8F"
          target="_blank" rel="noopener" class="price-card reveal reveal-delay-2">
         <div class="price-icon">📞</div>
         <p class="price-type">Audio Call</p>
         <p class="price-amount"><span>₹</span>1,500</p>
         <p class="price-note">First 30 minutes of personal guidance over call.</p>
         <p class="price-extra">+ ₹50 per additional minute</p>
-        <p class="price-cta">Schedule on Calendly →</p>
+        <p class="price-cta">Book via WhatsApp →</p>
       </a>
 
-      <!-- Video Call → Calendly -->
-      <a href="https://calendly.com/healinghandspgoel/30min"
+      <!-- Video Call → WhatsApp -->
+      <a href="https://wa.me/919238745399?text=Hi%20Priyanka%20%F0%9F%8E%A5%20I%E2%80%99d%20like%20to%20book%20a%20Video%20Call%20session%20(%E2%82%B92%2C500%20for%2030%20mins).%20Could%20you%20share%20your%20available%20slots%3F%20Thank%20you%20%F0%9F%99%8F"
          target="_blank" rel="noopener" class="price-card reveal reveal-delay-3">
         <div class="price-icon">🎥</div>
         <p class="price-type">Video Call</p>
         <p class="price-amount"><span>₹</span>2,500</p>
         <p class="price-note">First 30 minutes face-to-face — the most immersive experience.</p>
         <p class="price-extra">+ ₹65 per additional minute</p>
-        <p class="price-cta">Schedule on Calendly →</p>
+        <p class="price-cta">Book via WhatsApp →</p>
       </a>
 
     </div>
