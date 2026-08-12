@@ -480,8 +480,9 @@ footer {
 
   /* Nav — keep logo readable */
   nav { padding: 1rem var(--pad); }
-  .nav-logo { font-size: 1rem; }
-  .nav-logo svg { width: 18px; height: 18px; }
+  .nav-logo { font-size: 1.2rem; gap: 0.65rem; }
+  .nav-logo img { height: 46px; }
+  .nav-logo .logo-sub { font-size: 0.52em; letter-spacing: 0.16em; }
 
   /* Hero — single column, big text, clear CTA */
   .hero-inner {
@@ -585,7 +586,7 @@ footer {
     <li><a href="#services">Services</a></li>
     <li><a href="#pricing">Pricing</a></li>
     <li><a href="#philosophy">Philosophy</a></li>
-    <li><a href="#book" class="nav-cta">Book a Session</a></li>
+    <li><a href="#pricing" class="nav-cta">Book a Session</a></li>
   </ul>
   <button class="nav-hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
     <span></span><span></span><span></span>
@@ -598,7 +599,7 @@ footer {
   <a href="#services" class="drawer-link">Services</a>
   <a href="#pricing" class="drawer-link">Pricing</a>
   <a href="#philosophy" class="drawer-link">Philosophy</a>
-  <a href="#book" class="drawer-cta drawer-link">Book a Session</a>
+  <a href="#pricing" class="drawer-cta drawer-link">Book a Session</a>
 </div>
 
 <!-- HERO -->
@@ -624,7 +625,7 @@ footer {
         A sacred space for deep healing, clarity, and transformation — through Reiki, Tarot, Vedic Numerology, and Akashic wisdom.
       </p>
       <div class="hero-actions">
-        <a href="#book" class="btn-primary">Book a Session →</a>
+        <a href="#pricing" class="btn-primary">Book a Session →</a>
         <a href="#services" class="btn-ghost">Explore services ↓</a>
       </div>
     </div>
@@ -671,7 +672,7 @@ footer {
              Until then, the lotus placeholder shows.
              ===================================================== -->
         <div class="about-photo-wrap">
-          <img src="priyanka-photo.jpeg" alt="Priyanka Goel — Healing Hands"
+          <img src="priyanka-photo.jpg" alt="Priyanka Goel — Healing Hands"
                onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
           <!-- Static placeholder — remove the div below once priyanka-photo.jpg is added -->
           <div class="about-photo-placeholder">
