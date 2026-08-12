@@ -115,7 +115,26 @@ nav.scrolled .nav-logo .logo-sub { color: var(--lavender-deep); font-weight: 300
   display: flex; align-items: center; overflow: hidden;
   background: linear-gradient(160deg, #f0eafc 0%, #f7f3ea 40%, #e8f0ec 100%);
 }
-.hero-bg-orb {
+.hero-brand {
+  display: flex; align-items: center; gap: 0.9rem;
+  margin-bottom: 2rem;
+  opacity: 0; transform: translateY(20px);
+  animation: fadeUp 1s 0.1s forwards;
+}
+.hero-brand-logo { height: 64px; width: auto; object-fit: contain; flex-shrink: 0; }
+.hero-brand-text { display: flex; flex-direction: column; gap: 0.15rem; }
+.hero-brand-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(1.4rem, 4vw, 2rem);
+  font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--plum); line-height: 1;
+}
+.hero-brand-sub {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(0.75rem, 2vw, 0.95rem);
+  font-weight: 400; letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--lavender-deep); line-height: 1;
+}
   position: absolute; border-radius: 50%;
   filter: blur(80px); opacity: 0.35; pointer-events: none;
   will-change: transform;
@@ -477,15 +496,18 @@ footer {
 @media (max-width: 600px) {
   :root { --pad: 1.25rem; }
 
-  /* Nav — keep logo readable */
-  nav { padding: 1rem var(--pad); }
-  .nav-logo { font-size: 1.2rem; gap: 0.65rem; }
-  .nav-logo img { height: 46px; }
-  .nav-logo .logo-sub { font-size: 0.52em; letter-spacing: 0.16em; }
+  /* Nav — icon only, just size the logo */
+  nav { padding: 1.1rem var(--pad); }
+  .nav-logo img { height: 48px; }
+  /* Hero brand block — slightly tighter on mobile */
+  .hero-brand { margin-bottom: 1.5rem; gap: 0.75rem; }
+  .hero-brand-logo { height: 56px; }
+  .hero-brand-name { font-size: 1.5rem; }
+  .hero-brand-sub { font-size: 0.78rem; }
 
   /* Hero — single column, big text, clear CTA */
   .hero-inner {
-    padding-top: 5rem;
+    padding-top: 6.5rem;
     padding-bottom: 3rem;
     grid-template-columns: 1fr;
     gap: 2rem;
@@ -570,15 +592,7 @@ footer {
 <!-- NAV -->
 <nav id="nav">
   <a href="#" class="nav-logo">
-    <!-- =====================================================
-         LOGO: logo.png should be a transparent-background PNG.
-         Use remove.bg to strip the white background first.
-         ===================================================== -->
-    <img src="logo.png" alt="Healing Hands logo" style="height:36px; width:auto; object-fit:contain;">
-    <span class="nav-logo-text">
-      Healing Hands
-      <span class="logo-sub">Priyanka Goel</span>
-    </span>
+    <img src="logo.png" alt="Healing Hands logo" style="height:44px; width:auto; object-fit:contain;">
   </a>
   <ul class="nav-links">
     <li><a href="#about">About</a></li>
@@ -614,6 +628,14 @@ footer {
 
   <div class="hero-inner">
     <div class="hero-left">
+      <!-- Brand identity — full name lives here on hero -->
+      <div class="hero-brand">
+        <img src="logo.png" alt="Healing Hands" class="hero-brand-logo">
+        <div class="hero-brand-text">
+          <span class="hero-brand-name">Healing Hands</span>
+          <span class="hero-brand-sub">Priyanka Goel</span>
+        </div>
+      </div>
       <p class="hero-eyebrow">Holistic Healing · Since 2006</p>
       <h1 class="hero-headline">
         If you don't find<br>
@@ -671,7 +693,7 @@ footer {
              Until then, the lotus placeholder shows.
              ===================================================== -->
         <div class="about-photo-wrap">
-          <img src="priyanka-photo.jpg" alt="Priyanka Goel — Healing Hands"
+          <img src="priyanka-photo.jpeg" alt="Priyanka Goel — Healing Hands"
                onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
           <!-- Static placeholder — remove the div below once priyanka-photo.jpg is added -->
           <div class="about-photo-placeholder">
